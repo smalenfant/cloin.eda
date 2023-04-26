@@ -9,7 +9,7 @@ import yaml
 async def main(queue: asyncio.Queue, args: Dict[str, Any]):
     elastic_host = args.get("elastic_host", "localhost")
     elastic_port = args.get("elastic_port", 9200)
-    elastic_scheme = args.get("elastic_scheme", http)
+    elastic_scheme = args.get("elastic_scheme", "http")
     elastic_username = args.get("elastic_username", "elastic")
     elastic_password = args.get("elastic_password", "elastic!")
     elastic_index_pattern = args.get("elastic_index_pattern", "filebeat-*")
