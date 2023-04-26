@@ -9,6 +9,7 @@ import yaml
 async def main(queue: asyncio.Queue, args: Dict[str, Any]):
     elastic_host = args.get("elastic_host", "localhost")
     elastic_port = args.get("elastic_port", 9200)
+    elastic_scheme = args.get("elastic_scheme", http)
     elastic_username = args.get("elastic_username", "elastic")
     elastic_password = args.get("elastic_password", "elastic!")
     elastic_index_pattern = args.get("elastic_index_pattern", "filebeat-*")
@@ -17,7 +18,7 @@ async def main(queue: asyncio.Queue, args: Dict[str, Any]):
 
     elastic_query = yaml.safe_load(query)
 
-    async with AsyncElasticsearch(f"http://{elastic_host}:{elastic_port}", basic_auth=(elastic_username, elastic_password)) as es:
+    async with AsyncElasticsearch(f"{elastic_scheme}://{elastic_host}:{elastic_port}", basic_auth=(elastic_username, elastic_password)) as es:
         # Set the initial search_after value to the current timestamp
         search_after = datetime.utcnow()
 
